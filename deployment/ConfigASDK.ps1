@@ -2673,29 +2673,42 @@ if (($progress[$RowIndex].Status -eq "Incomplete") -or ($progress[$RowIndex].Sta
         choco feature enable -n allowGlobalConfirmation
 
         # Visual Studio Code
-        Write-Verbose "Installing VS Code with Chocolatey"
-        choco install visualstudiocode
+        If (!(test-path 'C:\Program Files\Microsoft VS Code')){
+            Write-Verbose "Installing VS Code with Chocolatey"
+            choco install visualstudiocode
+        }
 
         # Putty
-        Write-Verbose "Installing Putty with Chocolatey"
-        choco install putty.install
+        If (!(test-path 'C:\Program Files\PuTTY')){
+            Write-Verbose "Installing Putty with Chocolatey"
+            choco install putty.install
+        }
 
         # WinSCP
-        Write-Verbose "Installing WinSCP with Chocolatey"
-        choco install winscp.install 
+        If (!(test-path 'C:\Program Files (x86)\WinSCP')){
+            Write-Verbose "Installing WinSCP with Chocolatey"
+            choco install winscp.install 
+        }
 
         # Chrome
-        Write-Verbose "Installing Chrome with Chocolatey"
-        choco install googlechrome
+        If (!(test-path 'C:\Program Files (x86)\Google')){
+            Write-Verbose "Installing Chrome with Chocolatey"
+            choco install googlechrome
+        }
 
         # WinDirStat
-        Write-Verbose "Installing WinDirStat with Chocolatey"
-        choco install windirstat
+        
+        If (!(test-path 'C:\Program Files (x86)\WinDirStat')){
+            Write-Verbose "Installing WinDirStat with Chocolatey"
+            choco install windirstat
+        }
 
         # Azure CLI
-        Write-Verbose "Installing latest version of Azure CLI with Chocolatey"
-        choco install azure-cli
-
+       If (!(test-path 'C:\Program Files (x86)\Microsoft SDKs\Azure\CLI2')){
+            Write-Verbose "Installing latest version of Azure CLI with Chocolatey"
+            choco install azure-cli
+        }
+        
         # Update the ConfigASDKProgressLog.csv file with successful completion
         $progress[$RowIndex].Status = "Complete"
         $progress | Export-Csv $ConfigASDKProgressLogPath -NoTypeInformation -Force
